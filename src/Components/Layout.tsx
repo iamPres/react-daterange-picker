@@ -6,7 +6,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Button, Box } from '@material-ui/core';
 import { Body } from './Body.tsx';
 import Menu from './Menu.tsx';
-import './Card.css';
+import './Styling.css';
 
 export function Layout() {
   const [tabSelected, setTab] = useState(-1);
