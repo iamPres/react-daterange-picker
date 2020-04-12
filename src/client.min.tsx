@@ -39597,7 +39597,7 @@ function toVal(mix) {
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".layout {\r\n  width: 450px;\r\n  height: 600px;\r\n}\r\n\r\n.box {\r\n  margin-top: 10px;\r\n  width: 450px;\r\n  height: 450px;\r\n  border-radius: 10px;\r\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);\r\n  text-align: center;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: top;\r\n}\r\n\r\n.header {\r\n  width: 450px;\r\n  height: 30px;\r\n  display: flex;\r\n  justify-content: left;\r\n  align-items: center;\r\n  list-style: none;\r\n}\r\n\r\n.header-title {\r\n  padding-left: 50px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.header-title2 {\r\n  margin-left: 10px;\r\n}\r\n\r\n.header-button {\r\n  padding: 8px 20px;\r\n  display: inline-block;\r\n}\r\n\r\n.dropdown-enter {\r\n  opacity: 0;\r\n}\r\n\r\n.dropdown-enter-active {\r\n  opacity: 1;\r\n  transition: opacity 200ms ease-in;\r\n}\r\n\r\n.dropdown-exit {\r\n  opacity: 1;\r\n}\r\n\r\n.dropdown-exit-active {\r\n  opacity: 0;\r\n  transition: opacity 200ms ease-in;\r\n}\r\n", ""]);
+exports.push([module.i, ".layout {\r\n  width: 450px;\r\n  height: 600px;\r\n}\r\n\r\n.box-header {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n\r\n.box {\r\n  margin-top: 10px;\r\n  margin-left: 40px;\r\n  width: 400px;\r\n  height: 375px;\r\n  border-radius: 10px;\r\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n}\r\n\r\n.header {\r\n  width: 450px;\r\n  height: 30px;\r\n  display: flex;\r\n  justify-content: left;\r\n  align-items: center;\r\n  list-style: none;\r\n}\r\n\r\n.header-title {\r\n  padding-left: 50px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.header-title2 {\r\n  margin-left: 10px;\r\n}\r\n\r\n.header-button {\r\n  padding: 8px 20px;\r\n  display: inline-block;\r\n}\r\n\r\n.calendar-button {\r\n  padding: 2px 2px;\r\n}\r\n\r\n.dropdown-enter {\r\n  opacity: 0;\r\n}\r\n\r\n.dropdown-enter-active {\r\n  opacity: 1;\r\n  transition: opacity 200ms ease-in;\r\n}\r\n\r\n.dropdown-exit {\r\n  opacity: 1;\r\n}\r\n\r\n.dropdown-exit-active {\r\n  opacity: 0;\r\n  transition: opacity 200ms ease-in;\r\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -78864,44 +78864,65 @@ function warning(condition, message) {
 /*!********************************************************!*\
   !*** ./react-daterange-picker/src/Components/Body.tsx ***!
   \********************************************************/
-/*! exports provided: default */
+/*! exports provided: Body */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Body", function() { return Body; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-
-
-var Body = /** @class */ (function (_super) {
-    __extends(Body, _super);
-    function Body() {
-        return _super !== null && _super.apply(this, arguments) || this;
+var __read = (undefined && undefined.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
     }
-    Body.prototype.render = function () {
-        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Box"], { className: "box" },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Box"], { mt: 2, mr: 1 },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Typography"], { color: "secondary", variant: "h5" }, this.props.date['month'])),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Box"], { mt: 2 },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Typography"], { color: "secondary", variant: "h5" }, this.props.date['year']))));
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spread = (undefined && undefined.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
+
+
+function Body(Props) {
+    var getVariant = function (item) {
+        if (item == Props.selected[Props.index]) {
+            return 'contained';
+        }
+        else {
+            return 'outlined';
+        }
     };
-    return Body;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
-/* harmony default export */ __webpack_exports__["default"] = (Body);
+    var handleClick = function (index) {
+        if (Props.index == 0) {
+            Props.setSelected([index, Props.selected[1]]);
+            Props.setDates([{ day: index + 1, month: Props.dates[Props.index].month, year: Props.dates[Props.index].year }, Props.dates[1]]);
+        }
+        else {
+            Props.setSelected([Props.selected[0], index]);
+            Props.setDates([Props.dates[0], { day: index + 1, month: Props.dates[Props.index].month, year: Props.dates[Props.index].year }]);
+        }
+    };
+    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Box"], { className: "box" },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Box"], { className: "box-header", mt: 2, mb: 2 },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Box"], { mt: 2, mr: 1 },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Typography"], { color: "textPrimary", variant: "h5" }, Props.dates[Props.index]['month'])),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Box"], { mt: 2 },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Typography"], { color: "secondary", variant: "h5" }, Props.dates[Props.index]['year']))),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Grid"], { container: true, justify: "center", spacing: 1, style: { maxWidth: '300px', maxHeight: '250px', minWidth: '300px', minHeight: '250px' } }, __spread(Array(31).keys()).map(function (item) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Grid"], { key: item, item: true },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Button"], { onClick: function () { return handleClick(item); }, style: { maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px' }, size: "small", color: 'primary', variant: getVariant(item), disableRipple: true }, item + 1))); }))));
+}
 
 
 /***/ }),
@@ -78956,6 +78977,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Menu_tsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Menu.tsx */ "./react-daterange-picker/src/Components/Menu.tsx");
 /* harmony import */ var _Card_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Card.css */ "./react-daterange-picker/src/Components/Card.css");
 /* harmony import */ var _Card_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_Card_css__WEBPACK_IMPORTED_MODULE_6__);
+var __read = (undefined && undefined.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
 
 
 
@@ -78964,10 +79001,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Layout() {
-    var _a = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(-1), tab = _a[0], setTab = _a[1];
-    var _b = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false), is_in = _b[0], setIn = _b[1];
-    var _c = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null), refresh_interval = _c[0], setRefreshInterval = _c[1];
-    var _d = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([{ day: 11, month: 'August', year: 1965 }, { day: 26, month: 'December', year: 1945 }]), dates = _d[0], setDates = _d[1];
+    var _a = __read(Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(-1), 2), tab = _a[0], setTab = _a[1];
+    var _b = __read(Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([0, 0]), 2), selected = _b[0], setSelected = _b[1];
+    var _c = __read(Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false), 2), is_in = _c[0], setIn = _c[1];
+    var _d = __read(Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null), 2), refresh_interval = _d[0], setRefreshInterval = _d[1];
+    var _e = __read(Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([{ day: 11, month: 'August', year: 1965 }, { day: 26, month: 'December', year: 1945 }]), 2), dates = _e[0], setDates = _e[1];
     var toggleDropdown = function (num) {
         if (tab != num) {
             if (is_in == false) {
@@ -78983,12 +79021,6 @@ function Layout() {
                 setIn(false);
             }
         }
-    };
-    var getSettings = function (settings) {
-        setRefreshInterval(settings);
-    };
-    var getDates = function (dates) {
-        setDates(dates);
     };
     function loadDates(dates) {
         return JSON.parse(JSON.stringify(dates, null, 2));
@@ -79011,10 +79043,10 @@ function Layout() {
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Menu_tsx__WEBPACK_IMPORTED_MODULE_5__["default"], null))),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_2__["TabPanel"], null,
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_transition_group__WEBPACK_IMPORTED_MODULE_1__["CSSTransition"], { in: is_in, timeout: 200, classNames: 'dropdown', unmountOnExit: true },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Body_tsx__WEBPACK_IMPORTED_MODULE_4__["default"], { date: loadDates(dates)[0] }))),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Body_tsx__WEBPACK_IMPORTED_MODULE_4__["Body"], { index: 0, dates: loadDates(dates), setDates: setDates, selected: selected, setSelected: setSelected }))),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_2__["TabPanel"], null,
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_transition_group__WEBPACK_IMPORTED_MODULE_1__["CSSTransition"], { in: is_in, timeout: 200, classNames: 'dropdown', unmountOnExit: true },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Body_tsx__WEBPACK_IMPORTED_MODULE_4__["default"], { date: loadDates(dates)[1] }))))));
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Body_tsx__WEBPACK_IMPORTED_MODULE_4__["Body"], { index: 1, dates: loadDates(dates), setDates: setDates, selected: selected, setSelected: setSelected }))))));
 }
 
 
