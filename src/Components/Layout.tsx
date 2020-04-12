@@ -4,24 +4,25 @@ import { CSSTransition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Button, Box } from '@material-ui/core';
-import Body from './Body.tsx';
+import { Body } from './Body.tsx';
 import Menu from './Menu.tsx';
-import './Card.css';
+import './Styling.css';
 
 export function Layout() {
-  const [tab, setTab] = useState(-1);
-  const [is_in, setIn] = useState(false);
-  const [refresh_interval, setRefreshInterval] = useState(null);
+  const [tabSelected, setTab] = useState(-1);
+  const [daySelected, setSelected] = useState([0,0]);
+  const [bodyAppeared, setIn] = useState(false);
+  const [refreshInterval, setRefreshInterval] = useState(null);
   const [dates, setDates] = useState([{day: 11, month: 'August', year: 1965}, {day: 26, month: 'December', year: 1945}]);
 
   const toggleDropdown = (num) => {
-    if (tab != num) {
-      if (is_in == false) {
+    if (tabSelected != num) {
+      if (bodyAppeared == false) {
         setIn(true);
       }
       setTab(num);
     } else {
-      if (is_in == false) {
+      if (bodyAppeared == false) {
         setIn(true);
       }
       else {
@@ -30,16 +31,8 @@ export function Layout() {
     }
   }
 
-  const getSettings = (settings) => {
-    setRefreshInterval(settings);
-  }
-
-  const getDates = (dates) => {
-    setDates(dates);
-  }
-
   function loadDates(dates) {
-    return JSON.parse(JSON.stringify(dates, null, 2))
+    return JSON.parse(JSON.stringify(dates, null, 2));
   }
 
     return (
@@ -60,18 +53,18 @@ export function Layout() {
             </Tab>
           </TabList>
           <TabPanel>
-            <CSSTransition in={is_in} timeout={200} classNames='dropdown' unmountOnExit>
+            <CSSTransition in={bodyAppeared} timeout={200} classNames='dropdown' unmountOnExit>
               <Menu />
             </CSSTransition>
           </TabPanel>
           <TabPanel>
-            <CSSTransition in={is_in} timeout={200} classNames='dropdown' unmountOnExit>
-              <Body date={loadDates(dates)[0]}/>
+            <CSSTransition in={bodyAppeared} timeout={200} classNames='dropdown' unmountOnExit>
+              <Body index={0} dates={loadDates(dates)} setDates={setDates} selected={daySelected} setSelected={setSelected}/>
             </CSSTransition>
           </TabPanel>
           <TabPanel>
-            <CSSTransition in={is_in} timeout={200} classNames='dropdown' unmountOnExit>
-              <Body date={loadDates(dates)[1]}/>
+            <CSSTransition in={bodyAppeared} timeout={200} classNames='dropdown' unmountOnExit>
+              <Body index={1} dates={loadDates(dates)} setDates={setDates} selected={daySelected} setSelected={setSelected}/>
             </CSSTransition>
           </TabPanel>
         </Tabs>
