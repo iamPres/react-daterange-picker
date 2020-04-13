@@ -10,7 +10,7 @@ import './Styling.css';
 
 export function Layout() {
   const [start, setStart] = useState(true);
-  const [tabSelected, setTab] = useState(-1);
+  const [tabSelected, setTabSelected] = useState(-1);
   const [propertySelected, setPropertySelected] = useState(-1);
   const [daySelected, setSelected] = useState([0,0]);
   const [menuClass, setMenuClass] = useState("menu-closed");
@@ -26,7 +26,7 @@ export function Layout() {
         setBoxClass("box")
         setMenuClass("menu-closed")
       }
-      setTab(num);
+      setTabSelected(num);
     } else if (tabSelected == num){
       if (boxClass == "box-closed") {
         setBoxClass("box")
@@ -40,7 +40,7 @@ export function Layout() {
       if (menuClass == "menu-closed") {
         setMenuClass("menu")
         setBoxClass("box-closed")
-        setTab(num);
+        setTabSelected(num);
       } else {
         setMenuClass("menu-closed")
       }
