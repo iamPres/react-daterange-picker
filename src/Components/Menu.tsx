@@ -1,15 +1,29 @@
 import React from "react";
-import { Button, Box, Typography } from '@material-ui/core';
+import { Button, Box, Typography, FormGroup, FormControlLabel, Switch } from '@material-ui/core';
 
-export default class Body extends React.Component {
+interface Inputs {
+  refreshIntervalEnabled: boolean;
+  setRefreshIntervalEnabled(x): void;
+  menuClass: string;
+}
 
-  render() {
+export function Menu(Props: Inputs) {
+
+    function toggleSwitch() {
+      if (Props.refreshIntervalEnabled) {
+        Props.setRefreshIntervalEnabled(false)
+      } else {
+        Props.setRefreshIntervalEnabled(true)
+      }
+    }
+
     return (
-      <Box className="box">
-        <Box mt={2}>
-          <Typography color="secondary" variant="h5">Nothing to see here!</Typography>
+      <Box mt={2} className={Props.menuClass}>
+        <Box mt={2} ml={2}>
+          <FormGroup>
+            <FormControlLabel control={<Switch size="small" checked={Props.refreshIntervalEnabled} onChange={() => toggleSwitch()} />} label="Refresh Interval"/>
+          </FormGroup>
         </Box>
       </Box>
     );
-  }
 }
