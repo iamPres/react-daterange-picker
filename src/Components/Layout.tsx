@@ -5,11 +5,13 @@ import PropTypes from 'prop-types';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Button, Box } from '@material-ui/core';
 import { Body } from './Body.tsx';
-import { Menu } from './Menu.tsx'
+import { MenuView } from './Menu.tsx'
 import './Styling.css';
 
 export function Layout() {
   const [start, setStart] = useState(true);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [refreshIntervalUnits, setRefreshIntervalUnits] = useState('Minutes')
   const [tabSelected, setTabSelected] = useState(-1);
   const [propertySelected, setPropertySelected] = useState(-1);
   const [daySelected, setSelected] = useState([0,0]);
@@ -76,7 +78,7 @@ export function Layout() {
             </Tab>
           </TabList>
           <TabPanel>
-            <Menu refreshIntervalEnabled={refreshIntervalEnabled} setRefreshIntervalEnabled={setRefreshIntervalEnabled} menuClass={menuClass}/>
+            <MenuView refreshInterval={refreshInterval} setRefreshInterval={setRefreshInterval} anchorEl={anchorEl} setAnchorEl={setAnchorEl} refreshIntervalUnits={refreshIntervalUnits} setRefreshIntervalUnits={setRefreshIntervalUnits} refreshIntervalEnabled={refreshIntervalEnabled} setRefreshIntervalEnabled={setRefreshIntervalEnabled} menuClass={menuClass}/>
           </TabPanel>
           <TabPanel>
             <Body propertySelected={propertySelected} setPropertySelected={setPropertySelected} boxClass={boxClass} setBoxClass={setBoxClass} index={0} dates={loadDates(dates)} setDates={setDates} selected={daySelected} setSelected={setSelected}/>

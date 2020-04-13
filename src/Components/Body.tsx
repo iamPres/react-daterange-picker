@@ -106,8 +106,8 @@ export function Body(Props: State) {
               <Button onClick={() => updateTransition(1)} style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} size="small" color="secondary" variant="text"><ArrowBackIosIcon/></Button>
             </Box>
           </Box>
-          <Box>
-            <Grid container justify="center" spacing={1} style={{maxWidth: '300px', maxHeight: '200px', minWidth: '300px', minHeight: '200px'}}>
+          <Box ml={4}>
+            <Grid container justify="flex-start" spacing={1} style={{maxWidth: '300px', maxHeight: '200px', minWidth: '300px', minHeight: '200px'}}>
               {[...Array(7).keys()].map(item => (
                 <Grid item>
                   <Button disableRipple={true} color="secondary" size="small" variant="text" style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}>{day[item]}</Button>
