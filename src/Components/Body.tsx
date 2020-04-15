@@ -1,19 +1,26 @@
 import React, { Fragment } from "react";
-import { Button, Box, Typography, GridList, GridListTile, Grid } from '@material-ui/core';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ReactList from 'react-list';
-import './Styling.css'
+import {
+  Button,
+  Box,
+  Typography,
+  GridList,
+  GridListTile,
+  Grid,
+} from "@material-ui/core";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ReactList from "react-list";
+import "./Styling.css";
 
 interface Dates {
-  [x:string]:string;
+  [x: string]: string;
 }
 
 interface State {
   setSelected(x): void;
   setDates(y): void;
   setBoxClass(z): void;
-  setPropertySelected(a):void;
+  setPropertySelected(a): void;
   boxClass: string;
   selected: number[];
   index: number;
@@ -22,109 +29,224 @@ interface State {
 }
 
 export function Body(props: State) {
-
-  const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'November', 'December']
-  const day = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+  const month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "November",
+    "December",
+  ];
+  const day = ["S", "M", "T", "W", "T", "F", "S"];
 
   const getVariant = (item) => {
-      if(item == props.selected[props.index]) {
-        return 'contained';
-      } else {
-        return 'outlined';
-      }
+    if (item == props.selected[props.index]) {
+      return "contained";
+    } else {
+      return "outlined";
     }
+  };
 
-    function toggleBox() {
-      if (props.boxClass == "box") {
-        props.setBoxClass("box-wide")
-      } else {
-        props.setBoxClass("box")
-      }
+  function toggleBox() {
+    if (props.boxClass == "box") {
+      props.setBoxClass("box-wide");
+    } else {
+      props.setBoxClass("box");
     }
+  }
 
-    function updateTransition(index) {
-      if (props.propertySelected == -1) {
-        props.setPropertySelected(index)
-        props.setBoxClass("box-wide")
-      }
-      else if (index == props.propertySelected) {
-        toggleBox()
-      } else if (index != props.propertySelected && props.boxClass == "box-wide") {
-        props.setPropertySelected(index)
-      } else if (index != props.propertySelected && props.boxClass == "box") {
-        props.setPropertySelected(index)
-        toggleBox()
-      }
+  function updateTransition(index) {
+    if (props.propertySelected == -1) {
+      props.setPropertySelected(index);
+      props.setBoxClass("box-wide");
+    } else if (index == props.propertySelected) {
+      toggleBox();
+    } else if (
+      index != props.propertySelected &&
+      props.boxClass == "box-wide"
+    ) {
+      props.setPropertySelected(index);
+    } else if (index != props.propertySelected && props.boxClass == "box") {
+      props.setPropertySelected(index);
+      toggleBox();
     }
+  }
 
-    const handleClick = (key, value) => {
-      var date = props.dates
-      if (key == 'day') {
-        var selected = props.selected
-        selected[props.index] = value
-        props.setSelected(selected)
-        value += 1
-      } else {
-        toggleBox()
-      }
-      date[props.index][key] = value
-      props.setDates(date);
-
+  const handleClick = (key, value) => {
+    var date = props.dates;
+    if (key == "day") {
+      var selected = props.selected;
+      selected[props.index] = value;
+      props.setSelected(selected);
+      value += 1;
+    } else {
+      toggleBox();
     }
+    date[props.index][key] = value;
+    props.setDates(date);
+  };
 
   function renderItem(index) {
-    var key = 'month'
+    var key = "month";
     if (props.propertySelected == 1) {
-      key = 'year'
+      key = "year";
     }
-    return <Button onClick={() => handleClick(key, index)} variant="text" color="primary" size="large" style={{maxWidth: '100px', maxHeight: '30px', minWidth: '100px', minHeight: '30px'}}>{index}</Button>;
+    return (
+      <Button
+        onClick={() => handleClick(key, index)}
+        variant="text"
+        color="primary"
+        size="large"
+        style={{
+          maxWidth: "100px",
+          maxHeight: "30px",
+          minWidth: "100px",
+          minHeight: "30px",
+        }}
+      >
+        {index}
+      </Button>
+    );
   }
 
   function renderScroll() {
     if (props.boxClass == "box-wide") {
       if (props.propertySelected == 1) {
-        return <Box mt={10}><div style={{overflow: 'auto', maxHeight: 200, maxWidth: 120}}> <ReactList itemRenderer={(index) => renderItem(index+2000)} length={100} type='uniform'/></div></Box>
+        return (
+          <Box mt={10}>
+            <div style={{ overflow: "auto", maxHeight: 200, maxWidth: 120 }}>
+              {" "}
+              <ReactList
+                itemRenderer={(index) => renderItem(index + 2000)}
+                length={100}
+                type="uniform"
+              />
+            </div>
+          </Box>
+        );
       } else {
-        return <Box mt={10}><div style={{overflow: 'auto', maxHeight: 200, maxWidth: 120}}> <ReactList itemRenderer={(index) => renderItem(month[index])} length={12} type='uniform'/></div></Box>
+        return (
+          <Box mt={10}>
+            <div style={{ overflow: "auto", maxHeight: 200, maxWidth: 120 }}>
+              {" "}
+              <ReactList
+                itemRenderer={(index) => renderItem(month[index])}
+                length={12}
+                type="uniform"
+              />
+            </div>
+          </Box>
+        );
       }
     } else {
-      return <div/>
+      return <div />;
     }
   }
 
-    return (
-      <Box className={props.boxClass}>
-        <Box className="box-container">
-          <Box className="box-header" mt={2} mb={2}>
+  return (
+    <Box className={props.boxClass}>
+      <Box className="box-container">
+        <Box className="box-header" mt={2} mb={2}>
           <Box mt={2}>
-            <Button onClick={() => updateTransition(0)} style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} size="small" variant="text"><ArrowForwardIosIcon/></Button>
+            <Button
+              onClick={() => updateTransition(0)}
+              style={{
+                maxWidth: "30px",
+                maxHeight: "30px",
+                minWidth: "30px",
+                minHeight: "30px",
+              }}
+              size="small"
+              variant="text"
+            >
+              <ArrowForwardIosIcon />
+            </Button>
           </Box>
-            <Box mt={2} mr={1}>
-              <Typography color="textPrimary" variant="h5">{props.dates[props.index]['month']}</Typography>
-            </Box>
-            <Box mt={2}>
-              <Typography color="secondary" variant="h5">{props.dates[props.index]['year']}</Typography>
-            </Box>
-            <Box ml={1} mt={2}>
-              <Button onClick={() => updateTransition(1)} style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} size="small" color="secondary" variant="text"><ArrowBackIosIcon/></Button>
-            </Box>
+          <Box mt={2} mr={1}>
+            <Typography color="textPrimary" variant="h5">
+              {props.dates[props.index]["month"]}
+            </Typography>
           </Box>
-          <Box ml={4}>
-            <Grid container justify="flex-start" spacing={1} style={{maxWidth: '300px', maxHeight: '200px', minWidth: '300px', minHeight: '200px'}}>
-              {[...Array(7).keys()].map(item => (
-                <Grid item>
-                  <Button disableRipple={true} color="secondary" size="small" variant="text" style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}>{day[item]}</Button>
-                </Grid>
-               ))}
-            {[...Array(31).keys()].map(item => (
-              <Grid key={item} item>
-               <Button onClick={() => handleClick('day', item)} style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} size="small" color='primary' variant={getVariant(item)} disableRipple >{item+1}</Button>
-              </Grid>
-             ))}
-            </Grid>
+          <Box mt={2}>
+            <Typography color="secondary" variant="h5">
+              {props.dates[props.index]["year"]}
+            </Typography>
+          </Box>
+          <Box ml={1} mt={2}>
+            <Button
+              onClick={() => updateTransition(1)}
+              style={{
+                maxWidth: "30px",
+                maxHeight: "30px",
+                minWidth: "30px",
+                minHeight: "30px",
+              }}
+              size="small"
+              color="secondary"
+              variant="text"
+            >
+              <ArrowBackIosIcon />
+            </Button>
           </Box>
         </Box>
-        {renderScroll()}
+        <Box ml={4}>
+          <Grid
+            container
+            justify="flex-start"
+            spacing={1}
+            style={{
+              maxWidth: "300px",
+              maxHeight: "200px",
+              minWidth: "300px",
+              minHeight: "200px",
+            }}
+          >
+            {[...Array(7).keys()].map((item) => (
+              <Grid item>
+                <Button
+                  disableRipple={true}
+                  color="secondary"
+                  size="small"
+                  variant="text"
+                  style={{
+                    maxWidth: "30px",
+                    maxHeight: "30px",
+                    minWidth: "30px",
+                    minHeight: "30px",
+                  }}
+                >
+                  {day[item]}
+                </Button>
+              </Grid>
+            ))}
+            {[...Array(31).keys()].map((item) => (
+              <Grid key={item} item>
+                <Button
+                  onClick={() => handleClick("day", item)}
+                  style={{
+                    maxWidth: "30px",
+                    maxHeight: "30px",
+                    minWidth: "30px",
+                    minHeight: "30px",
+                  }}
+                  size="small"
+                  color="primary"
+                  variant={getVariant(item)}
+                  disableRipple
+                >
+                  {item + 1}
+                </Button>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       </Box>
-    );
+      {renderScroll()}
+    </Box>
+  );
 }

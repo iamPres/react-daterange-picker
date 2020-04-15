@@ -13,7 +13,7 @@
 .box {
   margin-top: 10px;
   margin-left: 40px;
-  opacity: 1.0;
+  opacity: 1;
   width: 400px;
   height: 375px;
   border-radius: 10px;
@@ -29,7 +29,7 @@
 .menu {
   margin-top: 10px;
   margin-left: 40px;
-  opacity: 1.0;
+  opacity: 1;
   width: 400px;
   height: 175px;
   border-radius: 10px;
@@ -82,7 +82,6 @@
   flex-direction: column;
   align-items: center;
 }
-
 
 .box-wide {
   margin-top: 10px;
