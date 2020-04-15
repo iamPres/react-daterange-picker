@@ -7,6 +7,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Button, Box } from '@material-ui/core';
 import { Body } from './Body.tsx';
 import { MenuView } from './Menu.tsx'
+import { TimerUI } from './Timer.tsx'
 import './Styling.css';
 
 export function Layout() {
@@ -63,27 +64,24 @@ export function Layout() {
     }
   }
 
-  function toMilliseconds() {
-    var milliseconds = 0
-    if (refreshIntervalUnits == 'Seconds') {
-      milliseconds = refreshInterval*1000
-    } else if (refreshIntervalUnits == 'Minutes') {
-      milliseconds = refreshInterval*1000*60
-    } else if (refreshIntervalUnits == 'Hours') {
-      milliseconds = refreshInterval*1000*60*60
-    }
-    if (refreshInterval > 1000*60*60*24) {
-      milliseconds = 1000*60*60*24-1
-    }
-    return milliseconds
+  function getMenuObj() {
+    return {menuError: menuError, setMenuError: setMenuError,
+      timerRunning: timerRunning, setTimerRunning: setTimerRunning,
+       refreshInterval: refreshInterval, setRefreshInterval: setRefreshInterval,
+       anchorEl: anchorEl, setAnchorEl: setAnchorEl,
+        refreshIntervalUnits: refreshIntervalUnits,
+        setRefreshIntervalUnits: setRefreshIntervalUnits,
+        refreshIntervalEnabled: refreshIntervalEnabled,
+         setRefreshIntervalEnabled: setRefreshIntervalEnabled,
+         menuClass: menuClass}
   }
 
-  function timer() {
-    if (timerRunning == true) {
-      return <Timer initialTime={toMilliseconds()} direction="backward">{({timerState}) => (<React.Fragment>{"Refresh in "}<Timer.Hours/>{":"}<Timer.Minutes/>{":"}<Timer.Seconds/></React.Fragment>)}</Timer>
-    } else {
-      return <div>Refesh</div>
-    }
+  function getBodyObj(index) {
+    return {propertySelected: propertySelected,
+        setPropertySelected: setPropertySelected, boxClass: boxClass,
+        setBoxClass: setBoxClass, index: index,
+       dates: loadDates(dates), setDates: setDates, selected: daySelected,
+       setSelected: setSelected}
   }
 
     return (
@@ -92,7 +90,7 @@ export function Layout() {
           <TabList className='header'>
             <Tab>
               <Button color='primary' variant='contained' className='header-button' >
-              {timer()}
+              <TimerUI timerRunning={timerRunning} refreshInterval={refreshInterval} refreshIntervalUnits={refreshIntervalUnits}/>
               </Button>
             </Tab>
             <Tab>
@@ -106,13 +104,13 @@ export function Layout() {
             </Tab>
           </TabList>
           <TabPanel>
-            <MenuView menuError={menuError} setMenuError={setMenuError} timerRunning={timerRunning} setTimerRunning={setTimerRunning} refreshInterval={refreshInterval} setRefreshInterval={setRefreshInterval} anchorEl={anchorEl} setAnchorEl={setAnchorEl} refreshIntervalUnits={refreshIntervalUnits} setRefreshIntervalUnits={setRefreshIntervalUnits} refreshIntervalEnabled={refreshIntervalEnabled} setRefreshIntervalEnabled={setRefreshIntervalEnabled} menuClass={menuClass}/>
+            <MenuView {...getMenuObj()}/>
           </TabPanel>
           <TabPanel>
-            <Body propertySelected={propertySelected} setPropertySelected={setPropertySelected} boxClass={boxClass} setBoxClass={setBoxClass} index={0} dates={loadDates(dates)} setDates={setDates} selected={daySelected} setSelected={setSelected}/>
+            <Body {...getBodyObj(0)}/>
           </TabPanel>
           <TabPanel>
-            <Body propertySelected={propertySelected} setPropertySelected={setPropertySelected} boxClass={boxClass} setBoxClass={setBoxClass} index={1} dates={loadDates(dates)} setDates={setDates} selected={daySelected} setSelected={setSelected}/>
+            <Body {...getBodyObj(1)}/>
           </TabPanel>
         </Tabs>
       </div>
