@@ -64,9 +64,12 @@ export function Body(Props: State) {
         selected[Props.index] = value
         Props.setSelected(selected)
         value += 1
+      } else {
+        toggleBox()
       }
       date[Props.index][key] = value
       Props.setDates(date);
+
     }
 
   function renderItem(index) {

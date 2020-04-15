@@ -1,5 +1,5 @@
 .layout {
-  width: 450px;
+  width: 600px;
   height: 600px;
 }
 
@@ -31,7 +31,7 @@
   margin-left: 40px;
   opacity: 1.0;
   width: 400px;
-  height: 150px;
+  height: 175px;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
   display: flex;
@@ -47,7 +47,7 @@
   margin-left: 40px;
   opacity: 0;
   width: 400px;
-  height: 150px;
+  height: 175px;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
   display: flex;
@@ -100,7 +100,7 @@
 }
 
 .header {
-  width: 450px;
+  width: 600px;
   height: 30px;
   display: flex;
   justify-content: left;
@@ -122,20 +122,9 @@
   display: inline-block;
 }
 
-.dropdown-enter {
-  opacity: 0;
-}
-
-.dropdown-enter-active {
-  opacity: 1;
-  transition: opacity 200ms ease-in;
-}
-
-.dropdown-exit {
-  opacity: 1;
-}
-
-.dropdown-exit-active {
-  opacity: 0;
-  transition: opacity 200ms ease-in;
+.timer-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  width: 400px;
 }
