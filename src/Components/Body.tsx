@@ -5,6 +5,7 @@ import {
   Typography,
   GridList,
   GridListTile,
+  TextField,
   Grid,
 } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
@@ -21,11 +22,18 @@ interface State {
   setDates(y): void;
   setBoxClass(z): void;
   setPropertySelected(a): void;
+  setDateTextContents(c): void;
+  setDateError(f): void;
+  setDaysInMonth(g): void;
+  getData(h): void;
   boxClass: string;
   selected: number[];
   index: number;
   dates: Dates[];
   propertySelected: number;
+  dateTextContents: string[];
+  dateError: boolean[];
+  daysInMonth: number[];
 }
 
 export function Body(props: State) {
@@ -78,18 +86,75 @@ export function Body(props: State) {
   }
 
   const handleClick = (key, value) => {
-    var date = props.dates;
+    var dateContent = props.dateTextContents;
+    var words = dateContent[props.index].split(" ");
     if (key == "day") {
-      var selected = props.selected;
+      resetDate("day", value);
+      words[0] = value + 1;
+    } else if (key == "month") {
+      toggleBox();
+      resetDate("month", value);
+      words[1] = value;
+    } else if (key == "year") {
+      toggleBox();
+      resetDate("year", value);
+      words[2] = value;
+    }
+    dateContent[props.index] =
+      String(words[0]) + " " + String(words[1]) + " " + String(words[2]);
+    props.setDateTextContents([dateContent[0], dateContent[1]]);
+  };
+
+  function handleTextDate(event) {
+    var dateContent = props.dateTextContents;
+    dateContent[props.index] = event;
+    props.setDateTextContents([dateContent[0], dateContent[1]]);
+
+    var errorState = props.dateError;
+    var words = event.split(" ");
+    words[0] = parseInt(words[0]);
+    words[2] = parseInt(words[2]);
+
+    if (
+      words[0] > -1 &&
+      words[0] <= 31 &&
+      month.includes(words[1]) &&
+      words[2] < 2100 &&
+      words[2] > 0
+    ) {
+      resetDate("day", words[0] - 1);
+      resetDate("month", words[1]);
+      resetDate("year", words[2]);
+      errorState[props.index] = false;
+    } else {
+      errorState[props.index] = true;
+    }
+    props.setDateError(errorState);
+  }
+
+  function resetDate(key, value) {
+    var date = props.dates;
+    var selected = props.selected;
+    var daysInMonthContent = props.daysInMonth;
+
+    if (key == "day") {
       selected[props.index] = value;
       props.setSelected(selected);
       value += 1;
-    } else {
-      toggleBox();
+    } else if (key == "month") {
+      date[props.index][key] = month[value];
     }
     date[props.index][key] = value;
     props.setDates(date);
-  };
+
+    daysInMonthContent[props.index] = new Date(
+      parseInt(date[props.index]["year"]),
+      month.indexOf(date[props.index]["month"]) + 1,
+      0
+    ).getDate();
+    props.setDaysInMonth([daysInMonthContent[0], daysInMonthContent[1]]);
+    props.getData(props.dates)
+  }
 
   function renderItem(index) {
     var key = "month";
@@ -145,6 +210,14 @@ export function Body(props: State) {
       }
     } else {
       return <div />;
+    }
+  }
+
+  function getTextTitle() {
+    if (props.index == 1) {
+      return "End Date";
+    } else {
+      return "Start Date";
     }
   }
 
@@ -224,7 +297,7 @@ export function Body(props: State) {
                 </Button>
               </Grid>
             ))}
-            {[...Array(31).keys()].map((item) => (
+            {[...Array(props.daysInMonth[props.index]).keys()].map((item) => (
               <Grid key={item} item>
                 <Button
                   onClick={() => handleClick("day", item)}
@@ -244,6 +317,18 @@ export function Body(props: State) {
               </Grid>
             ))}
           </Grid>
+        </Box>
+        <Box mt={7}>
+          <TextField
+            error={props.dateError[props.index]}
+            fullWidth={true}
+            value={props.dateTextContents[props.index]}
+            size="small"
+            id="outlined-basic"
+            label={getTextTitle()}
+            variant="outlined"
+            onChange={(event) => handleTextDate(event.target.value)}
+          />
         </Box>
       </Box>
       {renderScroll()}

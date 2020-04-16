@@ -18,7 +18,12 @@ import { MenuView } from "./Menu.tsx";
 import { TimerUI } from "./Timer.tsx";
 import "./Styling.css";
 
-export function Layout() {
+interface Inputs {
+  resetFn(): void;
+  getData(x): void;
+}
+
+export function Layout(props: Inputs) {
   const [start, setStart] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [refreshIntervalUnits, setRefreshIntervalUnits] = useState("Minutes");
@@ -31,8 +36,17 @@ export function Layout() {
   const [refreshIntervalEnabled, setRefreshIntervalEnabled] = useState(false);
   const currentDate = { day: 11, month: "August", year: 1965 };
   const [dates, setDates] = useState([currentDate, currentDate]);
+  const [daysInMonth, setDaysInMonth] = useState([
+    new Date(1965, 7, 0).getDate(),
+    new Date(1965, 7, 0).getDate(),
+  ]);
   const [timerRunning, setTimerRunning] = useState(false);
   const [menuError, setMenuError] = useState(false);
+  const [dateError, setDateError] = useState([false, false]);
+  const [dateTextContents, setDateTextContents] = useState([
+    "11 August 1965",
+    "11 August 1965",
+  ]);
 
   const toggleDropdown = (num) => {
     if (num != 0 && tabSelected != num) {
@@ -91,6 +105,8 @@ export function Layout() {
 
   function getBodyObj(index) {
     return {
+      daysInMonth: daysInMonth,
+      setDaysInMonth: setDaysInMonth,
       propertySelected: propertySelected,
       setPropertySelected: setPropertySelected,
       boxClass: boxClass,
@@ -100,6 +116,11 @@ export function Layout() {
       setDates: setDates,
       selected: daySelected,
       setSelected: setSelected,
+      dateError: dateError,
+      setDateError: setDateError,
+      dateTextContents: dateTextContents,
+      setDateTextContents: setDateTextContents,
+      getData: props.getData,
     };
   }
 
@@ -117,6 +138,8 @@ export function Layout() {
                 timerRunning={timerRunning}
                 refreshInterval={refreshInterval}
                 refreshIntervalUnits={refreshIntervalUnits}
+                resetFn={props.resetFn}
+                setTimerRunning={setTimerRunning}
               />
             </Button>
           </Tab>

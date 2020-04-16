@@ -6,27 +6,46 @@ interface Inputs {
   refreshInterval: number;
   refreshIntervalUnits: string;
   timerRunning: boolean;
+  resetFn(): void;
+  setTimerRunning(x): void;
 }
 
 export function TimerUI(props: Inputs) {
+  function determineInitialTime() {
+    var time = ms(String(props.refreshInterval) + props.refreshIntervalUnits);
+    if (time > 1000 * 60 * 60 * 24) {
+      return 1000 * 60 * 60 * 24 - 1;
+    } else {
+      return time;
+    }
+  }
+
+  function resetTimer() {
+    props.resetFn();
+    props.setTimerRunning(false);
+    props.setTimerRunning(true);
+  }
+
   if (props.timerRunning == true) {
     return (
       <Timer
-        initialTime={ms(
-          String(props.refreshInterval) + props.refreshIntervalUnits
-        )}
+        initialTime={determineInitialTime()}
         direction="backward"
+        checkpoints={[
+          {
+            time: 0,
+            callback: () => resetTimer(),
+          },
+        ]}
       >
-        {({ timerState }) => (
-          <React.Fragment>
-            {"Refresh in "}
-            <Timer.Hours />
-            {":"}
-            <Timer.Minutes />
-            {":"}
-            <Timer.Seconds />
-          </React.Fragment>
-        )}
+        <React.Fragment>
+          {"Refresh in "}
+          <Timer.Hours />
+          {":"}
+          <Timer.Minutes />
+          {":"}
+          <Timer.Seconds />
+        </React.Fragment>
       </Timer>
     );
   } else {

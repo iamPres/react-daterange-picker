@@ -35,6 +35,7 @@ export function MenuView(props: Inputs) {
   function toggleSwitch() {
     if (props.refreshIntervalEnabled) {
       props.setRefreshIntervalEnabled(false);
+      props.setTimerRunning(false);
     } else {
       props.setRefreshIntervalEnabled(true);
     }
