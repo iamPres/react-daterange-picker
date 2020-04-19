@@ -8,9 +8,13 @@ react-daterange-picker can be used to pick a date range in react and specify a d
  - install the [package.json](https://github.com/iamPres/react-daterange-picker/blob/master/package.json) dependencies with npm
 
 ## Example Usage
-```import React from "react";
+```javascript
+import React from "react";
 import ReactDOM from "react-dom";
-import { Layout } from "./Components/Layout.tsx";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import purple from "@material-ui/core/colors/purple";
+import green from "@material-ui/core/colors/green";
+import DateRangePicker from "../src/index.tsx";
 
 const app = document.getElementById("app");
 
@@ -23,16 +27,42 @@ function getData(data) {
 }
 
 ReactDOM.render(
-  <Layout resetFn={() => reset()} getData={(data) => getData(data)} />,
+  <DateRangePicker
+    resetFn={reset}
+    getData={getData}
+  />,
   app
 );
+
 ```
 
 ## Props
-- getData()
-  - Called every time the user chooses a date, takes a Date() object
-- resetFn()
+- `getData(data)`
+  - Called every time the user chooses a date, takes a `Date()` object
+- `resetFn()`
   - Called when the refresh timer resets
+- `dateFormatter` (optional)
+  - Takes a `Intl.DateTimeFormat` object used to format displayed dates
+  ```javascript
+  dateFormatter={
+      new Intl.DateTimeFormat("en", {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+      })
+    }
+  ```
+- `theme` (optional)
+  - Takes a materialUI `createMuiTheme()` object
+  ```javascript
+   theme={createMuiTheme({
+      palette: {
+        primary: purple,
+        secondary: green,
+      },
+    })}
+    ```
 ## Customization
  - Utilizes materialUI elements
- - Compatible with any materialUI theme
+ - Compatible with any materialUI `createMuiTheme()` object configuration
+ - Add custom date formatters (11/2/2000 vs November 2, 2000)
