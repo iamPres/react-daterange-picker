@@ -50,15 +50,15 @@ ReactDOM.render(
 ```
 
 ## Props
-- getData(data)
+- `getData(data)`
   - Called every time the user chooses a date, takes a Date() object
-- resetFn()
+- `resetFn()`
   - Called when the refresh timer resets
-- dateFormatter (optional)
+- `dateFormatter` (optional)
   - Takes a Intl.DateTimeFormat object used to format displayed dates
-- theme (optional)
-  - Takes a materialUI createMuiTheme() object
+- `theme` (optional)
+  - Takes a materialUI `createMuiTheme()` object
 ## Customization
  - Utilizes materialUI elements
- - Compatible with any materialUI createMuiTheme() object configuration
+ - Compatible with any materialUI `createMuiTheme()` object configuration
  - Add custom date formatters (11/2/2000 vs November 2, 2000)
