@@ -11,6 +11,9 @@ react-daterange-picker can be used to pick a date range in react and specify a d
 ```
 import React from "react";
 import ReactDOM from "react-dom";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import purple from "@material-ui/core/colors/purple";
+import green from "@material-ui/core/colors/green";
 import DateRangePicker from "../src/index.tsx";
 
 const app = document.getElementById("app");
@@ -27,10 +30,18 @@ ReactDOM.render(
   <DateRangePicker
     resetFn={reset}
     getData={getData}
-    dateFormatter={new Intl.DateTimeFormat("en", {
-      year: "numeric",
-      month: "short",
-      day: "2-digit",
+    dateFormatter={
+      new Intl.DateTimeFormat("en", {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+      })
+    }
+    theme={createMuiTheme({
+      palette: {
+        primary: purple,
+        secondary: green,
+      },
     })}
   />,
   app
@@ -45,7 +56,9 @@ ReactDOM.render(
   - Called when the refresh timer resets
 - dateFormatter (optional)
   - Takes a Intl.DateTimeFormat object used to format displayed dates
+- theme (optional)
+  - Takes a materialUI createMuiTheme() object
 ## Customization
  - Utilizes materialUI elements
- - Compatible with any materialUI theme
+ - Compatible with any materialUI createMuiTheme() object configuration
  - Add custom date formatters (11/2/2000 vs November 2, 2000)
