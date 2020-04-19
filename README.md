@@ -30,19 +30,6 @@ ReactDOM.render(
   <DateRangePicker
     resetFn={reset}
     getData={getData}
-    dateFormatter={
-      new Intl.DateTimeFormat("en", {
-        year: "numeric",
-        month: "short",
-        day: "2-digit",
-      })
-    }
-    theme={createMuiTheme({
-      palette: {
-        primary: purple,
-        secondary: green,
-      },
-    })}
   />,
   app
 );
@@ -56,8 +43,25 @@ ReactDOM.render(
   - Called when the refresh timer resets
 - `dateFormatter` (optional)
   - Takes a Intl.DateTimeFormat object used to format displayed dates
+  ```javascript
+  dateFormatter={
+      new Intl.DateTimeFormat("en", {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+      })
+    }
+  ```
 - `theme` (optional)
   - Takes a materialUI `createMuiTheme()` object
+  ```javascript
+   theme={createMuiTheme({
+      palette: {
+        primary: purple,
+        secondary: green,
+      },
+    })}
+    ```
 ## Customization
  - Utilizes materialUI elements
  - Compatible with any materialUI `createMuiTheme()` object configuration
