@@ -18,21 +18,42 @@ import { MenuView } from "./Menu.tsx";
 import { TimerUI } from "./Timer.tsx";
 import "./Styling.css";
 
-export function Layout() {
+interface Inputs {
+  resetFn(): void;
+  getData(x): void;
+}
+
+export function Layout(props: Inputs) {
   const [start, setStart] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [refreshIntervalUnits, setRefreshIntervalUnits] = useState("Minutes");
   const [tabSelected, setTabSelected] = useState(-1);
   const [propertySelected, setPropertySelected] = useState(-1);
-  const [daySelected, setSelected] = useState([0, 0]);
+
   const [menuClass, setMenuClass] = useState("menu-closed");
   const [boxClass, setBoxClass] = useState("box-closed");
   const [refreshInterval, setRefreshInterval] = useState(-1);
   const [refreshIntervalEnabled, setRefreshIntervalEnabled] = useState(false);
-  const currentDate = { day: 11, month: "August", year: 1965 };
-  const [dates, setDates] = useState([currentDate, currentDate]);
+  const [dates, setDates] = useState([new Date(), new Date()]);
+  const [daysInMonth, setDaysInMonth] = useState([
+    new Date(new Date().getFullYear(), new Date().getMonth(), 0).getDate(),
+    new Date(new Date().getFullYear(), new Date().getMonth(), 0).getDate(),
+  ]);
   const [timerRunning, setTimerRunning] = useState(false);
   const [menuError, setMenuError] = useState(false);
+  const [dateError, setDateError] = useState([false, false]);
+  const [dateTextContents, setDateTextContents] = useState([
+    new Intl.DateTimeFormat("en", {
+      year: "numeric",
+      month: "numeric",
+      day: "2-digit",
+    }).format(new Date()),
+    new Intl.DateTimeFormat("en", {
+      year: "numeric",
+      month: "numeric",
+      day: "2-digit",
+    }).format(new Date()),
+  ]);
 
   const toggleDropdown = (num) => {
     if (num != 0 && tabSelected != num) {
@@ -60,15 +81,14 @@ export function Layout() {
     }
   };
 
-  function loadDates(dates) {
-    return JSON.parse(JSON.stringify(dates, null, 2));
-  }
-
-  function initDates() {
-    if (start) {
-      setStart(false);
-      setSelected([dates[0]["day"] - 1, dates[1]["day"] - 1]);
-    }
+  function formatDateforDisplay(index) {
+    var date = new Date(dates[index]);
+    date.setDate(date.getDate());
+    return new Intl.DateTimeFormat("en", {
+      year: "numeric",
+      month: "numeric",
+      day: "2-digit",
+    }).format(date);
   }
 
   function getMenuObj() {
@@ -91,15 +111,21 @@ export function Layout() {
 
   function getBodyObj(index) {
     return {
+      daysInMonth: daysInMonth,
+      setDaysInMonth: setDaysInMonth,
       propertySelected: propertySelected,
       setPropertySelected: setPropertySelected,
       boxClass: boxClass,
       setBoxClass: setBoxClass,
       index: index,
-      dates: loadDates(dates),
+      dates: dates,
       setDates: setDates,
-      selected: daySelected,
-      setSelected: setSelected,
+      dateError: dateError,
+      setDateError: setDateError,
+      dateTextContents: dateTextContents,
+      setDateTextContents: setDateTextContents,
+      getData: props.getData,
+      formatDateforDisplay: formatDateforDisplay,
     };
   }
 
@@ -117,39 +143,22 @@ export function Layout() {
                 timerRunning={timerRunning}
                 refreshInterval={refreshInterval}
                 refreshIntervalUnits={refreshIntervalUnits}
+                resetFn={props.resetFn}
+                setTimerRunning={setTimerRunning}
               />
             </Button>
           </Tab>
           <Tab>
             <Box ml={2}>
-              <Button
-                onClick={() => initDates()}
-                color="primary"
-                variant="text"
-                className="header-title"
-              >
-                {" "}
-                {loadDates(dates)[0]["month"] +
-                  " " +
-                  loadDates(dates)[0]["day"] +
-                  " " +
-                  loadDates(dates)[0]["year"]}
+              <Button color="primary" variant="text" className="header-title">
+                {formatDateforDisplay(0)}
               </Button>
             </Box>
           </Tab>
           <span>&#10230;</span>
           <Tab>
-            <Button
-              onClick={() => initDates()}
-              color="primary"
-              variant="text"
-              className="header-title2"
-            >
-              {loadDates(dates)[1]["month"] +
-                " " +
-                loadDates(dates)[1]["day"] +
-                " " +
-                loadDates(dates)[1]["year"]}
+            <Button color="primary" variant="text" className="header-title2">
+              {formatDateforDisplay(1)}
             </Button>
           </Tab>
         </TabList>
