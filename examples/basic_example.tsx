@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Layout } from "./Components/Layout.tsx";
+import DateRangePicker from "../src/index.tsx";
 
 const app = document.getElementById("app");
 
@@ -13,6 +13,6 @@ function getData(data) {
 }
 
 ReactDOM.render(
-  <Layout resetFn={() => reset()} getData={(data) => getData(data)} />,
+  <DateRangePicker resetFn={reset} getData={getData} />,
   app
 );

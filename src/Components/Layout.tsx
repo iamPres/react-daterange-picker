@@ -8,9 +8,8 @@ import {
   getDay,
   getYear,
 } from "date-fns";
-import { CSSTransition } from "react-transition-group";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import Timer from "react-compound-timer";
-import PropTypes from "prop-types";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { Button, Box } from "@material-ui/core";
 import { Body } from "./Body.tsx";
@@ -21,6 +20,8 @@ import "./Styling.css";
 interface Inputs {
   resetFn(): void;
   getData(x): void;
+  dateFormatter?: Intl.DateTimeFormat;
+  theme?: any;
 }
 
 export function Layout(props: Inputs) {
@@ -43,16 +44,8 @@ export function Layout(props: Inputs) {
   const [menuError, setMenuError] = useState(false);
   const [dateError, setDateError] = useState([false, false]);
   const [dateTextContents, setDateTextContents] = useState([
-    new Intl.DateTimeFormat("en", {
-      year: "numeric",
-      month: "numeric",
-      day: "2-digit",
-    }).format(new Date()),
-    new Intl.DateTimeFormat("en", {
-      year: "numeric",
-      month: "numeric",
-      day: "2-digit",
-    }).format(new Date()),
+    formatDateforDisplay(0),
+    formatDateforDisplay(1),
   ]);
 
   const toggleDropdown = (num) => {
@@ -84,11 +77,15 @@ export function Layout(props: Inputs) {
   function formatDateforDisplay(index) {
     var date = new Date(dates[index]);
     date.setDate(date.getDate());
-    return new Intl.DateTimeFormat("en", {
-      year: "numeric",
-      month: "numeric",
-      day: "2-digit",
-    }).format(date);
+    if (props.dateFormatter) {
+      return props.dateFormatter.format(date);
+    } else {
+      return new Intl.DateTimeFormat("en", {
+        year: "numeric",
+        month: "numeric",
+        day: "2-digit",
+      }).format(date);
+    }
   }
 
   function getMenuObj() {
@@ -130,48 +127,50 @@ export function Layout(props: Inputs) {
   }
 
   return (
-    <div className="layout">
-      <Tabs onSelect={(index) => toggleDropdown(index)}>
-        <TabList className="header">
-          <Tab>
-            <Button
-              color="primary"
-              variant="contained"
-              className="header-button"
-            >
-              <TimerUI
-                timerRunning={timerRunning}
-                refreshInterval={refreshInterval}
-                refreshIntervalUnits={refreshIntervalUnits}
-                resetFn={props.resetFn}
-                setTimerRunning={setTimerRunning}
-              />
-            </Button>
-          </Tab>
-          <Tab>
-            <Box ml={2}>
-              <Button color="primary" variant="text" className="header-title">
-                {formatDateforDisplay(0)}
+    <MuiThemeProvider theme={props.theme}>
+      <div className="layout">
+        <Tabs onSelect={(index) => toggleDropdown(index)}>
+          <TabList className="header">
+            <Tab>
+              <Button
+                color="primary"
+                variant="contained"
+                className="header-button"
+              >
+                <TimerUI
+                  timerRunning={timerRunning}
+                  refreshInterval={refreshInterval}
+                  refreshIntervalUnits={refreshIntervalUnits}
+                  resetFn={props.resetFn}
+                  setTimerRunning={setTimerRunning}
+                />
               </Button>
-            </Box>
-          </Tab>
-          <span>&#10230;</span>
-          <Tab>
-            <Button color="primary" variant="text" className="header-title2">
-              {formatDateforDisplay(1)}
-            </Button>
-          </Tab>
-        </TabList>
-        <TabPanel>
-          <MenuView {...getMenuObj()} />
-        </TabPanel>
-        <TabPanel>
-          <Body {...getBodyObj(0)} />
-        </TabPanel>
-        <TabPanel>
-          <Body {...getBodyObj(1)} />
-        </TabPanel>
-      </Tabs>
-    </div>
+            </Tab>
+            <Tab>
+              <Box ml={2}>
+                <Button color="primary" variant="text" className="header-title">
+                  {formatDateforDisplay(0)}
+                </Button>
+              </Box>
+            </Tab>
+            <span>&#10230;</span>
+            <Tab>
+              <Button color="primary" variant="text" className="header-title2">
+                {formatDateforDisplay(1)}
+              </Button>
+            </Tab>
+          </TabList>
+          <TabPanel>
+            <MenuView {...getMenuObj()} />
+          </TabPanel>
+          <TabPanel>
+            <Body {...getBodyObj(0)} />
+          </TabPanel>
+          <TabPanel>
+            <Body {...getBodyObj(1)} />
+          </TabPanel>
+        </Tabs>
+      </div>
+    </MuiThemeProvider>
   );
 }
