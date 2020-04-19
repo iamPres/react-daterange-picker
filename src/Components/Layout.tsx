@@ -29,23 +29,30 @@ export function Layout(props: Inputs) {
   const [refreshIntervalUnits, setRefreshIntervalUnits] = useState("Minutes");
   const [tabSelected, setTabSelected] = useState(-1);
   const [propertySelected, setPropertySelected] = useState(-1);
-  const [daySelected, setSelected] = useState([0, 0]);
+
   const [menuClass, setMenuClass] = useState("menu-closed");
   const [boxClass, setBoxClass] = useState("box-closed");
   const [refreshInterval, setRefreshInterval] = useState(-1);
   const [refreshIntervalEnabled, setRefreshIntervalEnabled] = useState(false);
-  const currentDate = { day: 11, month: "August", year: 1965 };
-  const [dates, setDates] = useState([currentDate, currentDate]);
+  const [dates, setDates] = useState([new Date(), new Date()]);
   const [daysInMonth, setDaysInMonth] = useState([
-    new Date(1965, 7, 0).getDate(),
-    new Date(1965, 7, 0).getDate(),
+    new Date(new Date().getFullYear(), new Date().getMonth(), 0).getDate(),
+    new Date(new Date().getFullYear(), new Date().getMonth(), 0).getDate(),
   ]);
   const [timerRunning, setTimerRunning] = useState(false);
   const [menuError, setMenuError] = useState(false);
   const [dateError, setDateError] = useState([false, false]);
   const [dateTextContents, setDateTextContents] = useState([
-    "11 August 1965",
-    "11 August 1965",
+    new Intl.DateTimeFormat("en", {
+      year: "numeric",
+      month: "numeric",
+      day: "2-digit",
+    }).format(new Date()),
+    new Intl.DateTimeFormat("en", {
+      year: "numeric",
+      month: "numeric",
+      day: "2-digit",
+    }).format(new Date()),
   ]);
 
   const toggleDropdown = (num) => {
@@ -74,15 +81,14 @@ export function Layout(props: Inputs) {
     }
   };
 
-  function loadDates(dates) {
-    return JSON.parse(JSON.stringify(dates, null, 2));
-  }
-
-  function initDates() {
-    if (start) {
-      setStart(false);
-      setSelected([dates[0]["day"] - 1, dates[1]["day"] - 1]);
-    }
+  function formatDateforDisplay(index) {
+    var date = new Date(dates[index]);
+    date.setDate(date.getDate());
+    return new Intl.DateTimeFormat("en", {
+      year: "numeric",
+      month: "numeric",
+      day: "2-digit",
+    }).format(date);
   }
 
   function getMenuObj() {
@@ -112,15 +118,14 @@ export function Layout(props: Inputs) {
       boxClass: boxClass,
       setBoxClass: setBoxClass,
       index: index,
-      dates: loadDates(dates),
+      dates: dates,
       setDates: setDates,
-      selected: daySelected,
-      setSelected: setSelected,
       dateError: dateError,
       setDateError: setDateError,
       dateTextContents: dateTextContents,
       setDateTextContents: setDateTextContents,
       getData: props.getData,
+      formatDateforDisplay: formatDateforDisplay,
     };
   }
 
@@ -145,34 +150,15 @@ export function Layout(props: Inputs) {
           </Tab>
           <Tab>
             <Box ml={2}>
-              <Button
-                onClick={() => initDates()}
-                color="primary"
-                variant="text"
-                className="header-title"
-              >
-                {" "}
-                {loadDates(dates)[0]["month"] +
-                  " " +
-                  loadDates(dates)[0]["day"] +
-                  " " +
-                  loadDates(dates)[0]["year"]}
+              <Button color="primary" variant="text" className="header-title">
+                {formatDateforDisplay(0)}
               </Button>
             </Box>
           </Tab>
           <span>&#10230;</span>
           <Tab>
-            <Button
-              onClick={() => initDates()}
-              color="primary"
-              variant="text"
-              className="header-title2"
-            >
-              {loadDates(dates)[1]["month"] +
-                " " +
-                loadDates(dates)[1]["day"] +
-                " " +
-                loadDates(dates)[1]["year"]}
+            <Button color="primary" variant="text" className="header-title2">
+              {formatDateforDisplay(1)}
             </Button>
           </Tab>
         </TabList>

@@ -122,7 +122,7 @@ export function MenuView(props: Inputs) {
       <Box mt={1} ml={2} className="timer-buttons">
         <Box>
           <Button
-            disabled={!props.refreshIntervalEnabled}
+            disabled={!props.refreshIntervalEnabled || props.menuError}
             style={{
               maxHeight: "40px",
               minHeight: "40px",
