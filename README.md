@@ -8,7 +8,7 @@ react-daterange-picker can be used to pick a date range in react and specify a d
  - install the [package.json](https://github.com/iamPres/react-daterange-picker/blob/master/package.json) dependencies with npm
 
 ## Example Usage
-```
+```javascript
 import React from "react";
 import ReactDOM from "react-dom";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
