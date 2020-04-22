@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import DateRangePicker from "../src/index.tsx";
+import DateRangePicker from "../../../src/index.tsx";
 
 const app = document.getElementById("app");
 
