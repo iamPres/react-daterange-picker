@@ -93,7 +93,7 @@ export function QuickSelect(props: Inputs) {
   }
 
   function applyChanges() {
-    var dateRange = new DateRange(props.quickSelectText.join(' '));
+    var dateRange = new DateRange(props.quickSelectText.join(" "));
     props.setDates([dateRange.startDate, dateRange.endDate]);
     handleClick(dateRange);
   }

@@ -40,7 +40,10 @@ export function Layout(props: Inputs) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [termAnchorEl, setTermAnchorEl] = useState(null);
   const [intervalAnchorEl, setIntervalAnchorEl] = useState(null);
-  const [quickSelectText, setQuickSelectText] = useState(['last', '15 minutes']);
+  const [quickSelectText, setQuickSelectText] = useState([
+    "last",
+    "15 minutes",
+  ]);
   const [refreshIntervalUnits, setRefreshIntervalUnits] = useState("Minutes");
   const [tabSelected, setTabSelected] = useState(-1);
   const [propertySelected, setPropertySelected] = useState(-1);
