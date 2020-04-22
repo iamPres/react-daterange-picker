@@ -143,6 +143,21 @@ export function Layout(props: Inputs) {
     };
   }
 
+  function getQuickSelectObj() {
+    return {
+      boxClass: boxClass,
+      recentlySelected: recentlySelected,
+      setRecentlySelected: setRecentlySelected,
+      setDates: setDates,
+      setQuickSelectText: setQuickSelectText,
+      quickSelectText: quickSelectText,
+      setTermAnchorEl: setTermAnchorEl,
+      termAnchorEl: termAnchorEl,
+      setIntervalAnchorEl: setIntervalAnchorEl,
+      intervalAnchorEl: intervalAnchorEl,
+    };
+  }
+
   return (
     <MuiThemeProvider theme={props.theme}>
       <div className="layout">
@@ -198,18 +213,7 @@ export function Layout(props: Inputs) {
             </Tab>
           </TabList>
           <TabPanel>
-            <QuickSelect
-              boxClass={boxClass}
-              recentlySelected={recentlySelected}
-              setRecentlySelected={setRecentlySelected}
-              setDates={setDates}
-              setQuickSelectText={setQuickSelectText}
-              quickSelectText={quickSelectText}
-              setTermAnchorEl={setTermAnchorEl}
-              termAnchorEl={termAnchorEl}
-              setIntervalAnchorEl={setIntervalAnchorEl}
-              intervalAnchorEl={intervalAnchorEl}
-            />
+            <QuickSelect {...getQuickSelectObj()} />
           </TabPanel>
           <TabPanel>
             <MenuView {...getMenuObj()} />
