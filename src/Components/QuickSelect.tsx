@@ -19,9 +19,15 @@ class DateRange {
 
   constructor(text) {
     this.text = text;
-    this.startDate = new Date();
-    this.endDate = new Date();
-    this.startDate.setTime(this.startDate.getTime() - ms(this.text.slice(5)));
+    if (this.text.includes("next")) {
+      this.startDate = new Date();
+      this.endDate = new Date();
+      this.endDate.setTime(this.startDate.getTime() + ms(this.text.slice(5)));
+    } else {
+      this.startDate = new Date();
+      this.endDate = new Date();
+      this.startDate.setTime(this.startDate.getTime() - ms(this.text.slice(5)));
+    }
   }
 }
 
